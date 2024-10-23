@@ -39,11 +39,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @ExperimentalMaterial3Api
-@Preview(showBackground = true, device = "id:Nexus One")
+//@Preview(showBackground = true, device = "id:Nexus One")
 @Composable
-fun wahcah_state() {
+fun wahcah_state(nav:NavController) {
     var text by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Scaffold(
@@ -110,7 +111,11 @@ fun wahcah_state() {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = Modifier.padding(2.dp))
-            Button(onClick = { }) {
+            Button(onClick = {
+                if (text == "wahcah" && password == "wahcah") {
+                    nav.navigate("halaman_utama/wahyu")
+                }
+            }) {
                 Text("Login")
             }
         }

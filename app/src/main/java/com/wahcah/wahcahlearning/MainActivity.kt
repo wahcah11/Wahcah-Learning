@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,13 +21,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.wahcah.wahcahlearning.ui.theme.WahcahLearningTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
+            val navKontrol = rememberNavController()
+            NavHost(navController = navKontrol, startDestination = "login", builder = {
+                composable ("login") {
+                    wahcah_state(navKontrol)
+                }
+                composable("halaman_utama" + "/{nama}") {
+                    val nama = it.arguments?.getString("nama")
+                    main_page(nama?:"tanpa nama")
+                }
+            } )
         }
     }
 }
@@ -46,7 +60,7 @@ fun komponenSurface() {
 }
 
 @Composable
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 fun belajarKolom() {
     Column {
         Text(text = "Wahyu Cahyo Utomo")
@@ -69,7 +83,7 @@ fun belajarBox() {
         Text(text = "Mastering apps on Mobile Application")
     }
 }
-@Preview(showBackground = true, device = "id:Nexus One")
+//@Preview(showBackground = true, device = "id:Nexus One")
 @Composable
 fun deepBelajarKolom() {
     Column(
